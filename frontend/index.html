@@ -1,53 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Solitaire Leaderboard</title>
-
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Axios -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Solitaire King</title>
+  <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
-
 <body>
-  <header>
-    <h1>♠ Solitaire Game Leaderboard</h1>
-  </header>
 
-  <main>
-    <!-- Add Score Section -->
-    <section class="add-score">
-      <h2>Add Your Score</h2>
-      <form id="scoreForm">
-        <input type="text" id="playerName" placeholder="Enter your name" required>
-        <button type="submit">Submit</button>
-      </form>
-      <div id="resultMessage"></div>
-    </section>
-
-    <!-- Leaderboard Section -->
-    <section class="leaderboard">
-      <h2>Top Players</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Score</th>
-            <th>Duration (s)</th>
-          </tr>
-        </thead>
-        <tbody id="leaderboardData">
-          <!-- Data will be loaded here -->
-        </tbody>
-      </table>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2025 Solitaire Game — Built by Ahmad Samer Haj</p>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="logo" href="#">♠ Solitaire King</a>
+      <div class="nav-links">
+        <a href="#intro" id="navIntroLink">Home</a>
+        <a href="#download">Download</a>
+        <a href="#leaderboard" id="navLeaderboardLink">Leaderboard</a>
+        <a href="add-score.html" class="btn small">Add Score</a>
+      </div>
+    </div>
+  </nav>
+<section id="hero" class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Play The Classic Game Reimagined</h1>
+      <p>Challenge players worldwide, climb the leaderboard, and become the true Solitaire master!</p>
+      <img src="Hero.png" alt="Solitaire Game Preview">
+    </div>
+  </div>
+</section>
+  <section id="download" class="section download">
+    <div class="container">
+      <h2>Download</h2>
+      <div class="download-links">
+        <a class="store" href="#" target="_blank">App Store</a>
+        <a class="store" href="#" target="_blank">Google Play</a>
+      </div>
+    </div>
+  </section>
+  <section id="leaderboard" class="section leaderboard hidden">
+    <div class="container">
+      <div class="leaderboard-card">
+        <h2>Top Players</h2>
+        <table class="table" aria-label="Leaderboard">
+          <thead>
+            <tr>
+              <th>#</th><th>Name</th><th>Score</th><th>Duration (s)</th><th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-body">
+            <tr><td colspan="5">Loading...</td></tr>
+          </tbody>
+        </table>
+        <div class="leaderboard-actions">
+          <button id="btnBackHome" class="btn outline">Back</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer id="contact" class="section footer">
+    <div class="container">
+      <p>© 2025 Solitaire King — Built by Ahmad Samer Haj</p>
+    </div>
   </footer>
 
   <script src="script.js"></script>

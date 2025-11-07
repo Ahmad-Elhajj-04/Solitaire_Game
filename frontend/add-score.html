@@ -1,32 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Add Score - Solitaire</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Your Solitaire Score</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-  <header>
-    <h1><a href="index.html">♠ Solitaire Game</a></h1>
-  </header>
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">Solitaire King</a>
+            <div>
+                <a href="index.html#leaderboard">Back to Leaderboard</a>
+            </div>
+        </div>
+    </nav>
 
-  <main>
-    <section class="add-score">
-      <h2>Add Your Score</h2>
-      <form id="scoreForm">
-        <input type="text" id="playerName" placeholder="Enter your name" required>
-        <button type="submit">Submit</button>
-      </form>
-      <div id="resultMessage"></div>
+    <!-- Section: Add Score Form -->
+    <section>
+        <div id="add-score-section">
+            <h2>Submit Your Score</h2>
+            <p>Enter your name below. We'll automatically generate a random score and time, as if you just finished a game!</p>
+            
+            <form id="score-form">
+                <div class="form-group">
+                    <label for="player-name">Your Name:</label>
+                    <input type="text" id="player-name" name="name" required placeholder="Enter your player name">
+                </div>
+                <div class="form-group">
+                    <button type="submit">Submit Score & Join Leaderboard</button>
+                </div>
+            </form>
+
+            <div id="message-box" class="message-box"></div>
+        </div>
     </section>
-  </main>
-
-  <footer>
-    <p>© 2025 Solitaire Game — Built by Ahmad Samer Haj</p>
-  </footer>
-
-  <script src="add-score.js"></script>
+    <script src="add-score.js"></script>
 </body>
 </html>

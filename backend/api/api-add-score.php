@@ -1,11 +1,11 @@
 <?php
-// Set headers
+// Set headers first
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST");
 
 // Include database connection
-include("../Database/connection.php");
+require_once("../Database/connection.php");
 
 $response = [];
 

@@ -1,41 +1,80 @@
-// Fetch leaderboard data
-function loadLeaderboard() {
-  axios.get('../backend/api/get-score.php')
-    .then(response => {
-      const data = response.data;
-      const tableBody = document.getElementById('leaderboardData');
-      tableBody.innerHTML = "";
+// DOM Elements
+const heroSection = document.getElementById('hero');
+const downloadSection = document.getElementById('download');
+const leaderboardSection = document.getElementById('leaderboard');
+const leaderboardBody = document.getElementById('leaderboard-body');
+const btnBackHome = document.getElementById('btnBackHome');
+const navLeaderboardLink = document.getElementById('navLeaderboardLink');
+const navIntroLink = document.getElementById('navIntroLink');
 
-      data.forEach(player => {
-        const row = `<tr>
-          <td>${player.name}</td>
-          <td>${player.score}</td>
-          <td>${player.duration}</td>
-        </tr>`;
-        tableBody.innerHTML += row;
-      });
-    })
-    .catch(error => console.error('Error fetching leaderboard:', error));
+// Show/Hide Sections
+function showSection(section) {
+  // Hide all sections
+  if (heroSection) heroSection.style.display = 'none';
+  if (downloadSection) downloadSection.style.display = 'none';
+  if (leaderboardSection) leaderboardSection.classList.add('hidden');
+  
+  // Show requested section
+  if (section === 'leaderboard') {
+    leaderboardSection.classList.remove('hidden');
+    loadLeaderboard();
+  } else {
+    if (heroSection) heroSection.style.display = 'block';
+    if (downloadSection) downloadSection.style.display = 'block';
+  }
 }
 
-// Handle score submission
-document.getElementById('scoreForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const name = document.getElementById('playerName').value;
-
-  axios.post('../backend/api/api-add-score.php', new URLSearchParams({ name }))
+// Load Leaderboard Data
+function loadLeaderboard() {
+  axios.get('backend/api/api-get-score.php')
     .then(response => {
-      const res = response.data;
-      const msg = document.getElementById('resultMessage');
-      if (res.success) {
-        msg.textContent = `✅ Score added: ${res.score} pts, Duration: ${res.duration}s`;
-        loadLeaderboard();
+      const data = response.data;
+      
+      if (Array.isArray(data) && data.length > 0) {
+        let html = '';
+        data.forEach((player, index) => {
+          // Format date
+          const date = player.submit ? new Date(player.submit).toLocaleDateString() : 'N/A';
+          
+          html += `<tr>
+            <td>${index + 1}</td>
+            <td>${player.name}</td>
+            <td>${player.score}</td>
+            <td>${player.duration}</td>
+            <td>${date}</td>
+          </tr>`;
+        });
+        leaderboardBody.innerHTML = html;
       } else {
-        msg.textContent = `❌ ${res.error}`;
+        leaderboardBody.innerHTML = '<tr><td colspan="5">No scores yet</td></tr>';
       }
     })
-    .catch(error => console.error('Error adding score:', error));
-});
+    .catch(error => {
+      console.error('Error fetching leaderboard:', error);
+      leaderboardBody.innerHTML = '<tr><td colspan="5">Error loading data</td></tr>';
+    });
+}
 
-// Initial load
-loadLeaderboard();
+// Event Listeners
+if (navLeaderboardLink) {
+  navLeaderboardLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    showSection('leaderboard');
+  });
+}
+
+if (navIntroLink) {
+  navIntroLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    showSection('home');
+  });
+}
+
+if (btnBackHome) {
+  btnBackHome.addEventListener('click', () => {
+    showSection('home');
+  });
+}
+
+// Initial Load - Show home sections
+showSection('home');
