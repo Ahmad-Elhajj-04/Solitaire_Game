@@ -1,4 +1,4 @@
-// Simple form submission
+// Simple form submission using vanilla JavaScript
 document.getElementById('score-form').addEventListener('submit', function(e) {
   e.preventDefault();
   
@@ -20,28 +20,32 @@ document.getElementById('score-form').addEventListener('submit', function(e) {
   const formData = new FormData();
   formData.append('name', name);
 
-  // Send to server
-  axios.post('../backend/api/api-add-score.php', formData)
-    .then(function(response) {
-      const data = response.data;
+  // Send to server using vanilla JavaScript fetch
+  fetch('../backend/api/api-add-score.php', {
+    method: 'POST',
+    body: formData
+  })
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(data) {
+    if (data.success) {
+      messageBox.textContent = 'Score submitted successfully! Score: ' + data.score + ', Duration: ' + data.duration;
+      messageBox.className = 'show success';
+      document.getElementById('player-name').value = '';
       
-      if (data.success) {
-        messageBox.textContent = 'Score added successfully!';
-        messageBox.className = 'show success';
-        document.getElementById('player-name').value = '';
-        
-        // Go to leaderboard after 2 seconds
-        setTimeout(function() {
-          window.location.href = 'index.html#leaderboard';
-        }, 2000);
-      } else {
-        messageBox.textContent = 'Error: ' + (data.error || 'Unknown error');
-        messageBox.className = 'show error';
-      }
-    })
-    .catch(function(error) {
-      console.error('Error:', error);
-      messageBox.textContent = 'Error connecting to server';
+      // Go to leaderboard after 2 seconds
+      setTimeout(function() {
+        window.location.href = 'index.html#leaderboard';
+      }, 2000);
+    } else {
+      messageBox.textContent = 'Error: ' + (data.error || 'Unknown error');
       messageBox.className = 'show error';
-    });
+    }
+  })
+  .catch(function(error) {
+    console.error('Error:', error);
+    messageBox.textContent = 'Error connecting to server';
+    messageBox.className = 'show error';
+  });
 });
