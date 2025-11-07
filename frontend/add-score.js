@@ -1,42 +1,47 @@
-// Handle score submission
+// Simple form submission
 document.getElementById('score-form').addEventListener('submit', function(e) {
   e.preventDefault();
   
   const name = document.getElementById('player-name').value.trim();
-  const resultMessage = document.getElementById('message-box');
+  const messageBox = document.getElementById('message-box');
   
+  // Check if name is empty
   if (!name) {
-    resultMessage.textContent = '❌ Please enter your name';
-    resultMessage.style.color = '#ff6b6b';
+    messageBox.textContent = 'Please enter your name';
+    messageBox.className = 'show error';
     return;
   }
 
-  // Clear previous message
-  resultMessage.textContent = 'Submitting...';
-  resultMessage.style.color = '#f4d03f';
+  // Show loading
+  messageBox.textContent = 'Submitting...';
+  messageBox.className = 'show loading';
 
-  axios.post('../backend/api/api-add-score.php', new URLSearchParams({ name }))
-    .then(response => {
-      console.log('Response:', response.data); // Debug log
-      const res = response.data;
+  // Prepare data
+  const formData = new FormData();
+  formData.append('name', name);
+
+  // Send to server
+  axios.post('../backend/api/api-add-score.php', formData)
+    .then(function(response) {
+      const data = response.data;
       
-      if (res.success) {
-        resultMessage.textContent = `✅ Score added: ${res.score} pts, Duration: ${res.duration}s`;
-        resultMessage.style.color = '#51cf66';
+      if (data.success) {
+        messageBox.textContent = 'Score added successfully!';
+        messageBox.className = 'show success';
         document.getElementById('player-name').value = '';
+        
+        // Go to leaderboard after 2 seconds
+        setTimeout(function() {
+          window.location.href = 'index.html#leaderboard';
+        }, 2000);
       } else {
-        resultMessage.textContent = `❌ ${res.error || 'Unknown error'}`;
-        resultMessage.style.color = '#ff6b6b';
+        messageBox.textContent = 'Error: ' + (data.error || 'Unknown error');
+        messageBox.className = 'show error';
       }
     })
-    .catch(error => {
-      console.error('Error adding score:', error);
-      if (error.response) {
-        console.error('Error response:', error.response.data);
-        resultMessage.textContent = `❌ Server error: ${error.response.data.error || 'Unknown error'}`;
-      } else {
-        resultMessage.textContent = '❌ Error connecting to server';
-      }
-      resultMessage.style.color = '#ff6b6b';
+    .catch(function(error) {
+      console.error('Error:', error);
+      messageBox.textContent = 'Error connecting to server';
+      messageBox.className = 'show error';
     });
 });

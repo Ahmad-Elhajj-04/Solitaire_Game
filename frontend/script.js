@@ -26,7 +26,7 @@ function showSection(section) {
 
 // Load Leaderboard Data
 function loadLeaderboard() {
-  axios.get('backend/api/api-get-score.php')
+  axios.get('../backend/api/api-get-score.php')
     .then(response => {
       const data = response.data;
       
