@@ -8,7 +8,7 @@ header("Access-Control-Allow-Methods: GET");
 include("../Database/connection.php");
 
 // Fetch top 10 scores sorted by highest score
-$result = $mysql->query("SELECT name, score, duration, submit FROM scores ORDER BY score DESC LIMIT 10");
+$result = $mysql->query("SELECT name, score, duration, submit_time FROM scores ORDER BY score DESC LIMIT 10");
 
 if ($result) {
     $scores = $result->fetch_all(MYSQLI_ASSOC);

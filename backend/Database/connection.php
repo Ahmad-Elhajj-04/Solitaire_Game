@@ -3,7 +3,7 @@
 $db_host = "localhost";
 $db_user = "root";
 $db_pass = "";
-$db_name = "solitaire_database"; 
+$db_name = "solitaire_game";
 
 // Create connection
 $mysql = new mysqli($db_host, $db_user, $db_pass, $db_name);
