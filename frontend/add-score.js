@@ -1,9 +1,9 @@
 // Handle score submission
-document.getElementById('scoreForm').addEventListener('submit', function(e) {
+document.getElementById('score-form').addEventListener('submit', function(e) {
   e.preventDefault();
   
-  const name = document.getElementById('playerName').value.trim();
-  const resultMessage = document.getElementById('resultMessage');
+  const name = document.getElementById('player-name').value.trim();
+  const resultMessage = document.getElementById('message-box');
   
   if (!name) {
     resultMessage.textContent = '❌ Please enter your name';
@@ -23,7 +23,7 @@ document.getElementById('scoreForm').addEventListener('submit', function(e) {
       if (res.success) {
         resultMessage.textContent = `✅ Score added: ${res.score} pts, Duration: ${res.duration}s`;
         resultMessage.style.color = '#51cf66';
-        document.getElementById('playerName').value = '';
+        document.getElementById('player-name').value = '';
       } else {
         resultMessage.textContent = `❌ ${res.error || 'Unknown error'}`;
         resultMessage.style.color = '#ff6b6b';
