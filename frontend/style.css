@@ -1,19 +1,235 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial, sans-serif;
   background-color: #1c1f26;
   color: #f8f8f8;
   margin: 0;
   padding: 0;
+  line-height: 1.6;
 }
 
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Navigation */
+.nav {
+  background-color: #272b35;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.nav-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f4d03f;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #f8f8f8;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #f4d03f;
+}
+
+/* Buttons */
+.btn {
+  background-color: #f4d03f;
+  color: #1c1f26;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #ffe45e;
+}
+
+.btn.small {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+}
+
+.btn.outline {
+  background-color: transparent;
+  color: #f4d03f;
+  border: 2px solid #f4d03f;
+}
+
+.btn.outline:hover {
+  background-color: #f4d03f;
+  color: #1c1f26;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, #2f3644 0%, #1c1f26 100%);
+  padding: 80px 0;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  color: #f4d03f;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #ccc;
+}
+
+.hero img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Sections */
+.section {
+  padding: 60px 0;
+}
+
+.section h2 {
+  color: #f4d03f;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Download Section */
+.download {
+  background-color: #272b35;
+}
+
+.download-links {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.store {
+  background-color: #f4d03f;
+  color: #1c1f26;
+  padding: 15px 30px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.store:hover {
+  background-color: #ffe45e;
+}
+
+/* Leaderboard Section */
+.leaderboard {
+  background-color: #1c1f26;
+}
+
+.leaderboard.hidden {
+  display: none;
+}
+
+.leaderboard-card {
+  background-color: #2f3644;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.table thead {
+  background-color: #272b35;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #444;
+}
+
+.table th {
+  color: #f4d03f;
+  font-weight: bold;
+}
+
+.table tbody tr:hover {
+  background-color: #3a3f4f;
+}
+
+.leaderboard-actions {
+  margin-top: 20px;
+  text-align: center;
+}
+
+/* Footer */
+.footer {
+  background-color: #272b35;
+  text-align: center;
+  padding: 20px 0;
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+/* Add Score Page Specific Styles */
 header {
   text-align: center;
   background-color: #272b35;
   padding: 20px 0;
 }
 
-h1, h2 {
+header h1 a {
   color: #f4d03f;
+  text-decoration: none;
 }
 
 main {
@@ -24,6 +240,12 @@ main {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.add-score h2 {
+  color: #f4d03f;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 form {
@@ -37,6 +259,12 @@ input {
   padding: 10px;
   border-radius: 5px;
   border: none;
+  background-color: #1c1f26;
+  color: #f8f8f8;
+}
+
+input::placeholder {
+  color: #888;
 }
 
 button {
@@ -47,22 +275,18 @@ button {
   border-radius: 5px;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 button:hover {
   background-color: #ffe45e;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-th, td {
+#resultMessage {
+  margin-top: 15px;
   padding: 10px;
+  border-radius: 5px;
   text-align: center;
-  border-bottom: 1px solid #444;
 }
 
 footer {
@@ -71,4 +295,31 @@ footer {
   font-size: 0.9em;
   background-color: #272b35;
   color: #ccc;
+  margin-top: 40px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-links {
+    gap: 1rem;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .download-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .table th,
+  .table td {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
 }
