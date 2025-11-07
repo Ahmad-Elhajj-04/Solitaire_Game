@@ -23,8 +23,8 @@ if (isset($_POST["name"]) && trim($_POST["name"]) !== "") {
 $score = rand(0, 1000);
 $duration = rand(10, 300);
 
-// Insert into scores table
-$query = $mysql->prepare("INSERT INTO scores (name, score, duration) VALUES (?, ?, ?)");
+// Insert into leaderboard table
+$query = $mysql->prepare("INSERT INTO solitaire_database (name, score, duration) VALUES (?, ?, ?)");
 
 if ($query) {
     $query->bind_param("sii", $name, $score, $duration);
