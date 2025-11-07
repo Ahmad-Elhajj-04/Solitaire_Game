@@ -1,35 +1,52 @@
 <?php
-include("../../database/connection.php");
+// Set headers
+header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST");
+
+// Include database connection
+include("../Database/connection.php");
 
 $response = [];
 
 // Check required 'name' POST field
-if (isset($_POST["name"]) && $_POST["name"] !== "") {
-    $name = $_POST["name"];
+if (isset($_POST["name"]) && trim($_POST["name"]) !== "") {
+    $name = trim($_POST["name"]);
 } else {
     $response["success"] = false;
-    $response["error"] = "Name field is missing";
+    $response["error"] = "Name field is missing or empty";
     echo json_encode($response);
-    return;
+    exit();
 }
 
 // Generate random score and duration as per project spec
-$score = rand(0, 1000);  // example random score
-$duration = rand(10, 300);  // example random duration in seconds
+$score = rand(0, 1000);
+$duration = rand(10, 300);
 
 // Insert into scores table
 $query = $mysql->prepare("INSERT INTO scores (name, score, duration) VALUES (?, ?, ?)");
-$query->bind_param("sii", $name, $score, $duration);
-$success = $query->execute();
 
-if ($success) {
-    $response["success"] = true;
-    $response["score"] = $score;
-    $response["duration"] = $duration;
+if ($query) {
+    $query->bind_param("sii", $name, $score, $duration);
+    $success = $query->execute();
+    
+    if ($success) {
+        $response["success"] = true;
+        $response["score"] = $score;
+        $response["duration"] = $duration;
+    } else {
+        $response["success"] = false;
+        $response["error"] = "Database insert failed: " . $query->error;
+    }
+    
+    $query->close();
 } else {
     $response["success"] = false;
-    $response["error"] = "Database insert failed";
+    $response["error"] = "Failed to prepare statement: " . $mysql->error;
 }
 
 echo json_encode($response);
+
+// Close connection
+$mysql->close();
 ?>
