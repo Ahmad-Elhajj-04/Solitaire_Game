@@ -1,3 +1,5 @@
+
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -11,6 +13,7 @@ CREATE TABLE `solitaire_database` (
 
 ALTER TABLE `solitaire_database`
   ADD PRIMARY KEY (`Id`);
+
 ALTER TABLE `solitaire_database`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
