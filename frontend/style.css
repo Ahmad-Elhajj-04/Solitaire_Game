@@ -247,6 +247,10 @@ body {
   font-size: 1rem;
 }
 
+.form-field input::placeholder {
+  color: #888;
+}
+
 .form-field input:focus {
   outline: none;
   border-color: #4CAF50;
